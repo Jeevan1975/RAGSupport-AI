@@ -11,14 +11,14 @@ load_dotenv()
 
 embeddings = GoogleGenerativeAIEmbeddings(model='gemini-embedding-001')
 
-PERSIST_DIR = "./vectorstore"
+PERSIST_DIR = "../vectorstore"
 
 if not PERSIST_DIR:
-    os.mkdir('./vectorstore')
+    os.mkdir('../vectorstore')
 
 
 def ingest_documents():
-    documents_dir = "./data/documents"
+    documents_dir = "../data/documents"
     files = os.listdir(documents_dir)
     
     all_docs = []
