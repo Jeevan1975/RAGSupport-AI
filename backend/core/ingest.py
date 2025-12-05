@@ -1,35 +1,35 @@
-from langchain_chroma import Chroma
 from langchain_google_genai.embeddings import GoogleGenerativeAIEmbeddings
-from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_community.document_loaders import PyPDFLoader
+from langchain_chroma import Chroma
 from dotenv import load_dotenv
+from pathlib import Path
 from uuid import uuid4
-import os
 
 
 load_dotenv()
 
 embeddings = GoogleGenerativeAIEmbeddings(model='gemini-embedding-001')
 
-PERSIST_DIR = "../vectorstore"
+PERSIST_DIR = Path("../vectorstore")
+DOCUMENTS_DIR = Path("../data/documents")
 
-if not PERSIST_DIR:
-    os.mkdir('../vectorstore')
+# Ensure whether directories exist or not
+PERSIST_DIR.mkdir(parents=True, exist_ok=True)
+DOCUMENTS_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def ingest_documents():
-    documents_dir = "../data/documents"
-    files = os.listdir(documents_dir)
+    files = list(DOCUMENTS_DIR.glob("*.pdf"))
     
     all_docs = []
     
     # Loading documents
     for file in files:
-        if file.endswith(".pdf"):
-            print(f"Loading {file}...")
-            loader = PyPDFLoader(os.path.join(documents_dir, file))
-            docs = loader.load()
-            all_docs.extend(docs)
+        print(f"Loading {file}...")
+        loader = PyPDFLoader(str(file))
+        docs = loader.load()
+        all_docs.extend(docs)
     
     # Split documents
     print("Splitting documents into chunks...")
