@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
 
 
 class ChatRequest(BaseModel):
@@ -7,3 +7,14 @@ class ChatRequest(BaseModel):
 
 class ChatResponse(BaseModel):
     answer: str
+    
+
+
+class SignupRequest(BaseModel):
+    email: EmailStr
+    password: str
+    
+
+class LoginRequest(BaseModel):
+    email: EmailStr
+    password: str
