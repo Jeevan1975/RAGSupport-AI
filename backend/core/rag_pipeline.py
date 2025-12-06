@@ -47,8 +47,9 @@ rag_chain = (
     | parser
 )
 
-async def run_rag(query: str):
-    return await rag_chain.ainvoke({"question": query})
+async def run_rag_stream(query: str):
+    async for chunk in rag_chain.astream({"question": query}):
+        yield chunk
 
 # def run_rag(query: str):
 #     return rag_chain.invoke({"question": query})
