@@ -15,7 +15,7 @@ async def upload_file(file: UploadFile = File(...)):
     
     with open(file_location, "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
-
-    ingest_documents()
+    print("File location:",file_location)
+    ingest_documents(file_path=file_location)
     
     return("message:", "File uploaded and ingested successfully")
