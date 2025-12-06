@@ -5,7 +5,7 @@ from ..core.rag_pipeline import run_rag
 
 router = APIRouter()
 
-@router.get("/", response_model=ChatResponse)
+@router.post("/", response_model=ChatResponse)
 async def chat(request: ChatRequest):
     """
     Main RAG chat endpoint

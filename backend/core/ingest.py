@@ -5,11 +5,15 @@ from langchain_chroma import Chroma
 from dotenv import load_dotenv
 from pathlib import Path
 from uuid import uuid4
+import os
 
 
 load_dotenv()
 
-embeddings = GoogleGenerativeAIEmbeddings(model="models/text-embedding-004")
+embeddings = GoogleGenerativeAIEmbeddings(
+    model="models/text-embedding-004",
+    google_api_key=os.getenv("GOOGLE_API_KEY")
+)
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 PERSIST_DIR = str(BASE_DIR / "vectorstore")

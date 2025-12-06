@@ -4,7 +4,7 @@ from pathlib import Path
 import shutil
 
 
-router = APIRouter
+router = APIRouter()
 
 DOCUMENTS_DIR = Path(__file__).resolve().parent.parent / "data" / "documents"
 DOCUMENTS_DIR.mkdir(parents=True, exist_ok=True)

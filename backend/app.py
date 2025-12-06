@@ -5,7 +5,6 @@ from .routers import ingestion_router, chat_router
 
 app = FastAPI()
 
-
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],

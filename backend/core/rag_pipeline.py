@@ -15,7 +15,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 PERSIST_DIR = str(BASE_DIR / "vectorstore")
 
 # Load vector store
-embeddings = GoogleGenerativeAIEmbeddings(model="models/text-embedding-004")
+embeddings = GoogleGenerativeAIEmbeddings(
+    model="models/text-embedding-004",
+    google_api_key=os.getenv("GOOGLE_API_KEY")
+)
 
 vector_store = Chroma(
     collection_name="support_docs",
