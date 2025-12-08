@@ -6,10 +6,8 @@ from datetime import datetime
 
 class ChatRequest(BaseModel):
     question: str
-    
+    book_id: str
 
-class ChatResponse(BaseModel):
-    answer: str
     
 
 class SignupRequest(BaseModel):
