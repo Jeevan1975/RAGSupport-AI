@@ -11,8 +11,6 @@ import os
 
 load_dotenv()
 
-BASE_DIR = Path(__file__).resolve().parent.parent
-PERSIST_DIR = str(BASE_DIR / "vectorstores")
 
 # Load vector store
 embeddings = GoogleGenerativeAIEmbeddings(
@@ -20,36 +18,34 @@ embeddings = GoogleGenerativeAIEmbeddings(
     google_api_key=os.getenv("GOOGLE_API_KEY")
 )
 
-vector_store = Chroma(
-    collection_name="support_docs",
-    embedding_function=embeddings,
-    persist_directory=PERSIST_DIR
-)
 
-retriever = vector_store.as_retriever(search_kwargs={"k":6})
+async def run_rag_stream(vectorstore_path: str, question: str):
+    
+    vector_store = Chroma(
+        embedding_function=embeddings,
+        persist_directory=vectorstore_path
+    )
 
-prompt = chat_prompt
+    retriever = vector_store.as_retriever(search_kwargs={"k":6})
 
-model = get_llm()
+    prompt = chat_prompt
 
-parser = StrOutputParser()
+    model = get_llm()
 
-def format_docs(docs):
-    return "\n\n".join(doc.page_content for doc in docs)
+    parser = StrOutputParser()
 
-rag_chain = (
-    {
-        "context": RunnableLambda(lambda x: retriever.invoke(x["question"])) | RunnableLambda(format_docs),
-        "question": RunnableLambda(lambda x: x["question"])
-    }
-    | prompt
-    | model
-    | parser
-)
+    def format_docs(docs):
+        return "\n\n".join(doc.page_content for doc in docs)
 
-async def run_rag_stream(query: str):
-    async for chunk in rag_chain.astream({"question": query}):
+    rag_chain = (
+        {
+            "context": RunnableLambda(lambda x: retriever.invoke(x["question"])) | RunnableLambda(format_docs),
+            "question": RunnableLambda(lambda x: x["question"])
+        }
+        | prompt
+        | model
+        | parser
+    )
+
+    async for chunk in rag_chain.astream({"question": question}):
         yield chunk
-
-# def run_rag(query: str):
-#     return rag_chain.invoke({"question": query})
