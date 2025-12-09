@@ -1,4 +1,4 @@
-# 📚 AI Learning Platform – RAG-Based Book Question Answering
+# 📚 StudyGPT – RAG-Based Book Question Answering
 
 An AI-powered learning platform where users upload books (PDFs), and the system uses Retrieval-Augmented Generation (RAG) to answer questions based solely on the uploaded book. Users can chat with the book, ask questions, and receive real-time streaming responses.
 
