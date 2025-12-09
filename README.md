@@ -58,8 +58,7 @@ DATABASE_URL=your-database-url
 
 ### 1. Clone the repo
 ```bash
-git clone <repo-url>
-cd backend
+git clone https://github.com/Jeevan1975/StudyGPT.git
 ```
 
 ### 2. Create virtual environment
