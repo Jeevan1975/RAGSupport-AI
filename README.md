@@ -2,6 +2,7 @@
 
 An AI-powered learning platform where users upload books (PDFs), and the system uses Retrieval-Augmented Generation (RAG) to answer questions based solely on the uploaded book. Users can chat with the book, ask questions, and receive real-time streaming responses.
 
+---
 
 ## ✨ Features
 
@@ -31,6 +32,7 @@ The system performs:
 - `/chat/stream` → ChatGPT-style streaming responses
 - Every question is answered using only the content of the uploaded book
 
+---
 
 ## ⚙️ Environment Variables
 
@@ -44,6 +46,8 @@ SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
 SUPABASE_JWT_SECRET=your-jwt-secret
 DATABASE_URL=your-database-url
 ```
+
+---
 
 ## 🚀 Installation
 
@@ -76,6 +80,8 @@ Base.metadata.create_all(bind=engine)
 ```bash
 uvicorn app:app --reload
 ```
+
+---
 
 ## 🔐 Authentication Endpoints
 
@@ -116,6 +122,8 @@ Content-Type: application/json
 Authorization: Bearer <access_token>
 ```
 
+---
+
 ## 📚 Book Endpoints
 
 ### Upload Book
@@ -144,9 +152,9 @@ Authorization: Bearer <token>
 DELETE /books/{book_id}
 Authorization: Bearer <token>
 ```
+---
 
 ## 🤖 Chat Endpoint
-```
 
 ### Streaming (ChatGPT-like)
 ```http
@@ -159,8 +167,9 @@ Authorization: Bearer <token>
   "book_id": "uuid"
 }
 ```
-
 Returns incremental text chunks (`text/plain`).
+
+---
 
 ## 🧩 How Ingestion Works
 
@@ -175,6 +184,8 @@ Returns incremental text chunks (`text/plain`).
 5. Book status updated to `ready`
 6. User can now chat with that book
 
+---
+
 ## 🧠 Core Tech Stack
 
 | Component | Technology |
@@ -188,6 +199,8 @@ Returns incremental text chunks (`text/plain`).
 | **Database** | PostgreSQL + SQLAlchemy |
 | **Streaming** | FastAPI StreamingResponse |
 | **Background Tasks** | FastAPI BackgroundTasks |
+
+---
 
 ## 🛡️ Security Notes
 
